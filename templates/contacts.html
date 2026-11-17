@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Contacts Management</h1>
+
+<div class="card">
+    <h3>Add New Contact</h3>
+
+    <form method="POST">
+
+        <label>Select Company</label>
+        <select name="company_id" required>
+            <option value="">Choose Company</option>
+
+            {% for company in companies %}
+            <option value="{{ company.company_id }}">
+                {{ company.company_name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <input type="text" name="contact_name"
+               placeholder="Contact Name" required>
+
+        <input type="text" name="title"
+               placeholder="Job Title">
+
+        <input type="email" name="email"
+               placeholder="Email Address">
+
+        <input type="text" name="phone"
+               placeholder="Phone Number">
+
+        <input type="text" name="linkedin_url"
+               placeholder="LinkedIn URL">
+
+        <textarea name="notes"
+                  placeholder="Contact Notes"></textarea>
+
+        <button type="submit">Add Contact</button>
+
+    </form>
+</div>
+
+<br>
+
+<div class="card">
+    <h3>All Contacts</h3>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Title</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.contact_id }}</td>
+            <td>{{ contact.contact_name }}</td>
+            <td>{{ contact.company_name }}</td>
+            <td>{{ contact.title or '-' }}</td>
+            <td>{{ contact.email or '-' }}</td>
+            <td>{{ contact.phone or '-' }}</td>
+
+            <td>
+                <a href="{{ url_for('edit_contact',
+                    contact_id=contact.contact_id) }}">
+                    Edit
+                </a>
+
+                <form method="POST"
+                      action="{{ url_for('delete_contact',
+                      contact_id=contact.contact_id) }}"
+                      style="display:inline;"
+                      onsubmit="return confirm('Delete this contact?');">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+{% endblock %}

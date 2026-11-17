@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Job Tracker Dashboard</h1>
+
+<div class="dashboard-cards">
+    <div class="card">
+        <h3>Total Companies</h3>
+        <h2>{{ total_companies }}</h2>
+    </div>
+
+    <div class="card">
+        <h3>Total Jobs</h3>
+        <h2>{{ total_jobs }}</h2>
+    </div>
+
+    <div class="card">
+        <h3>Total Applications</h3>
+        <h2>{{ total_applications }}</h2>
+    </div>
+
+    <div class="card">
+        <h3>Total Contacts</h3>
+        <h2>{{ total_contacts }}</h2>
+    </div>
+</div>
+{% endblock %}

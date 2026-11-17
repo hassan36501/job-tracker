@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Edit Contact</h1>
+
+<div class="card">
+
+    <form method="POST">
+
+        <label>Select Company</label>
+        <select name="company_id" required>
+            {% for company in companies %}
+            <option value="{{ company.company_id }}"
+                {% if company.company_id == contact.company_id %}selected{% endif %}>
+                {{ company.company_name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <input type="text" name="contact_name"
+               value="{{ contact.contact_name }}" required>
+
+        <input type="text" name="title"
+               value="{{ contact.title or '' }}"
+               placeholder="Job Title">
+
+        <input type="email" name="email"
+               value="{{ contact.email or '' }}"
+               placeholder="Email Address">
+
+        <input type="text" name="phone"
+               value="{{ contact.phone or '' }}"
+               placeholder="Phone Number">
+
+        <input type="text" name="linkedin_url"
+               value="{{ contact.linkedin_url or '' }}"
+               placeholder="LinkedIn URL">
+
+        <textarea name="notes"
+                  placeholder="Contact Notes">{{ contact.notes or '' }}</textarea>
+
+        <button type="submit">Update Contact</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

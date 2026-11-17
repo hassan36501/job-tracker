@@ -1,0 +1,65 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Edit Job</h1>
+
+<div class="card">
+
+    <form method="POST">
+
+        <label>Company</label>
+        <select name="company_id" required>
+            {% for company in companies %}
+            <option value="{{ company.company_id }}"
+                {% if company.company_id == job.company_id %}selected{% endif %}>
+                {{ company.company_name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <label>Job Title</label>
+        <input type="text" name="job_title"
+               value="{{ job.job_title }}" required>
+
+        <label>Job Type</label>
+        <select name="job_type" required>
+            {% for type in ['Full-time', 'Part-time', 'Contract', 'Internship'] %}
+            <option value="{{ type }}"
+                {% if job.job_type == type %}selected{% endif %}>
+                {{ type }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <label>Minimum Salary</label>
+        <input type="number" name="salary_min"
+               value="{{ job.salary_min or '' }}"
+               placeholder="Minimum Salary">
+
+        <label>Maximum Salary</label>
+        <input type="number" name="salary_max"
+               value="{{ job.salary_max or '' }}"
+               placeholder="Maximum Salary">
+
+        <label>Job URL</label>
+        <input type="text" name="job_url"
+               value="{{ job.job_url or '' }}"
+               placeholder="Job URL">
+
+        <label>Date Posted</label>
+        <input type="date" name="date_posted"
+               value="{{ job.date_posted.strftime('%Y-%m-%d') if job.date_posted else '' }}">
+
+        <label>Required Skills</label>
+        <textarea name="requirements"
+                  placeholder="Python, SQL, Flask, HTML">{{ job.requirements_list | join(', ') }}</textarea>
+
+        <button type="submit">Update Job</button>
+
+    </form>
+
+</div>
+
+{% endblock %}
